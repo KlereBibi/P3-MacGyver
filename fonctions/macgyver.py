@@ -61,7 +61,6 @@ class MacGyver:
         if (self.ligne, self.colonne) == (gardien):
             if len(self.listedobjet) == 3:
                 print("Macgyver endort le gardien avec l'Ether")
-                self.donnerlobjetaugardien(listegardien)
                 print("Bravo Macgyver a réussi à s'échapper")
             else:
                 print("Il manque des objets, le gardien s'en prend à Macgyver. Fin de partie.")
@@ -71,21 +70,8 @@ class MacGyver:
     def attrapelobjet(self, passage, objettrouver, listedobjetlabyrinthe):
         passage.append(objettrouver.tupleposition)
         self.listedobjet.append(objettrouver)
-        listedobjetlabyrinthe.remove(objettrouver) #un paramètre n'est qu'une 
-        print("Macgyver a ramassé", objettrouver.clef, ".") 
-    
-    def donnerlobjetaugardien(self, listegardien): 
-        
-        for element in self.listedobjet:#a terminer !
-            while element.clef =! "de l'ether":
-
-                print("Macgyver utilise de l'Ether pour endormir le gardien")
-                self.listedobjet.remove(element)
-                listegardien.append(element)
-                
-            else:
-                
-            
+        listedobjetlabyrinthe.remove(objettrouver) #un paramètre n'est qu'une copie
+        print("Macgyver a ramassé", objettrouver.nomdelobjet, ".") 
     
     def compteurdobjet(self):
         if len(self.listedobjet) == 1:
