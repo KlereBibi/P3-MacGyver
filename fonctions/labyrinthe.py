@@ -4,6 +4,11 @@ from fonctions.macgyver import MacGyver
 from fonctions.gardien import Gardien
 from random import choice
 from fonctions.objets import Items
+import pygame
+pygame.init()
+
+pygame.display.set_caption("Macgyver")
+screen = pygame.display.set_mode((225, 225))#largeur, hauteur ouf
 
 
 class Labyrinthe:
@@ -14,6 +19,8 @@ class Labyrinthe:
         self.longueur = 0
         self.largeur = 0
         self.listedobjet = []
+        self.image_mur = pygame.image.load("mur.png")
+        self.image_passage = pygame.image.load("Passage.png")
 
     def readlab(self):
         monfichier = open(MONLABYRINTHE, "r")
@@ -38,19 +45,21 @@ class Labyrinthe:
         #self.choixdelobjet = choice(ITEMS)
         for i in range(self.longueur):
             for j in range(self.largeur):
-                for element in self.listedobjet:
+                """ for element in self.listedobjet:
                     if (i,j) == element.tupleposition:
-                        print(element.printvaleur, end='')
+                        screen.blit(image, (i*15,j*15)) """
                 if (i,j) in self.malistedetuplemur:
-                    print("m",end='')
+                    screen.blit(self.image_mur, (i*15,j*15))
                     
                 elif (i,j) in self.malistedetuplepassage:
-                    print("p",end='')
+                    screen.blit(self.image_passage, (i*15,j*15))
 
                 elif i == self.gardien.ligne and j == self.gardien.colonne:
-                    print("g",end='') 
+                    screen.blit(self.gardien.image, (i*15,j*15))
                 elif i == self.macgyver.ligne and j == self.macgyver.colonne:
-                    print("h",end='')
+                    screen.blit(self.macgyver.image, (i*15,j*15))
+            
+            pygame.display.flip()
             print("")
                 
     def objetdanslabyrinthe(self):
@@ -58,6 +67,7 @@ class Labyrinthe:
             objet = Items(element, self.malistedetuplepassage )
             self.listedobjet.append(objet)
             self.malistedetuplepassage.remove(objet.tupleposition)
+            #image = objet.afficherlesimages()
 
 
             

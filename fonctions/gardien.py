@@ -1,3 +1,5 @@
+import pygame
+
 class Gardien: 
 
     def __init__(self, x, y):
@@ -5,5 +7,6 @@ class Gardien:
         self.colonne = y
         self.tuplegardien = (x,y)
         self.listedobjet = []
+        self.image = pygame.image.load("Gardien.PNG")
 
   
