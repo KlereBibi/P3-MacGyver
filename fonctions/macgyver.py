@@ -18,17 +18,16 @@ class MacGyver(pygame.sprite.Sprite):
             inputok = True
         return True """
 
-    def lecturedelinput(self, userchoice):
-        for event in userchoice:
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_DOWN:
-                    return (self.ligne + 1, self.colonne)
-                elif event.key == pygame.K_RIGHT:
-                    return (self.ligne, self.colonne +1)
-                elif event.key == pygame.K_LEFT:
-                    return (self.ligne, self.colonne -1)
-                elif event.key == pygame.K_UP:
-                    return (self.ligne -1, self.colonne)
+    def lecturedelinput(self, event):
+        
+        if event.key == pygame.K_DOWN:
+            return (self.ligne + 1, self.colonne)
+        elif event.key == pygame.K_RIGHT:
+            return (self.ligne, self.colonne +1)
+        elif event.key == pygame.K_LEFT:
+            return (self.ligne, self.colonne -1)
+        elif event.key == pygame.K_UP:
+            return (self.ligne -1, self.colonne)
 
     def chekmove(self, variable, passage, listedobjetlabyrinthe, gardien):
         move = False
@@ -43,10 +42,10 @@ class MacGyver(pygame.sprite.Sprite):
             print("merci de recommencer")
         return move
 
-    def movemacgyver(self, userchoice, passage, gardien, listedobjetlabyrinthe, boleen, listegardien):
+    def movemacgyver(self, event, passage, gardien, listedobjetlabyrinthe, boleen, listegardien):
   
         
-        positionaregarder = self.lecturedelinput(userchoice)
+        positionaregarder = self.lecturedelinput(event)
         if self.chekmove( positionaregarder, passage, listedobjetlabyrinthe, gardien):
             passage.append((self.ligne, self.colonne))
             self.ligne = positionaregarder[0]
