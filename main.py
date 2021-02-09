@@ -22,14 +22,14 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_DOWN:
-                    (monlabyrinthe.macgyver.ligne + 15, monlabyrinthe.macgyver.colonne)
+                    monlabyrinthe.screen.blit(monlabyrinthe.macgyver.image, (monlabyrinthe.macgyver.ligne + 15, monlabyrinthe.macgyver.colonne))
                 elif event.key == pygame.K_RIGHT:
-                    (monlabyrinthe.macgyver.ligne, monlabyrinthe.macgyver.colonne +15)
+                    monlabyrinthe.screen.blit(monlabyrinthe.macgyver.image,(monlabyrinthe.macgyver.ligne, monlabyrinthe.macgyver.colonne +15))
                 elif event.key == pygame.K_LEFT:
-                    (monlabyrinthe.macgyver.ligne, monlabyrinthe.macgyver.colonne -15)
+                    monlabyrinthe.screen.blit(monlabyrinthe.macgyver.image,(monlabyrinthe.macgyver.ligne, monlabyrinthe.macgyver.colonne -15))
                 elif event.key == pygame.K_UP:
-                    (monlabyrinthe.macgyver.ligne -15, monlabyrinthe.macgyver.colonne)
-        pygame.display.flip()      
+                    monlabyrinthe.screen.blit(monlabyrinthe.macgyver.image,(monlabyrinthe.macgyver.ligne -15, monlabyrinthe.macgyver.colonne))
+            pygame.display.flip()      
        
 
 

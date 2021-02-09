@@ -8,7 +8,7 @@ import pygame
 pygame.init()
 
 pygame.display.set_caption("Macgyver")
-screen = pygame.display.set_mode((225, 225))#largeur, hauteur ouf
+#screen = pygame.display.set_mode((225, 225))#largeur, hauteur ouf
 
 
 class Labyrinthe:
@@ -21,6 +21,7 @@ class Labyrinthe:
         self.listedobjet = []
         self.image_mur = pygame.image.load("mur.png")
         self.image_passage = pygame.image.load("Passage.png")
+        self.screen = pygame.display.set_mode((225, 225))
 
     def readlab(self):
         monfichier = open(MONLABYRINTHE, "r")
@@ -49,15 +50,15 @@ class Labyrinthe:
                     if (i,j) == element.tupleposition:
                         screen.blit(image, (i*15,j*15)) """
                 if (i,j) in self.malistedetuplemur:
-                    screen.blit(self.image_mur, (i*15,j*15))
+                    self.screen.blit(self.image_mur, (i*15,j*15))
                     
                 elif (i,j) in self.malistedetuplepassage:
-                    screen.blit(self.image_passage, (i*15,j*15))
+                    self.screen.blit(self.image_passage, (i*15,j*15))
 
                 elif i == self.gardien.ligne and j == self.gardien.colonne:
-                    screen.blit(self.gardien.image, (i*15,j*15))
+                    self.screen.blit(self.gardien.image, (i*15,j*15))
                 elif i == self.macgyver.ligne and j == self.macgyver.colonne:
-                    screen.blit(self.macgyver.image, (i*15,j*15))
+                    self.screen.blit(self.macgyver.image, (i*15,j*15))
             
             pygame.display.flip()
             print("")
