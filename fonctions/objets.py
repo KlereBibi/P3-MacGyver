@@ -9,16 +9,9 @@ class Items():
         #faire une clef générique pour objet
         self.printvaleur = self.typeobjet["image"]
         self.nomdelobjet = self.typeobjet["name"]
-
-"""     def afficherlesimages(self):
-        if "name" == "aiguille":
-            return self.image_item = pygame.image.load("aiguille.png")
-        elif "name" == "un tube en plastique":
-            return self.image_item = pygame.image.load("tube_plastique.png")
-        elif "name" == "de l'ether":
-            return self.image_item = pygame.image.load("ether.png") """
-        
-
+        self.ligne = self.tupleposition[0] 
+        self.colonne = self.tupleposition[1]
+        self.newtupleposition = (self.ligne*15, self.colonne*15)
         
         
 

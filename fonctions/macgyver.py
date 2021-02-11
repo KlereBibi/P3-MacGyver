@@ -9,37 +9,31 @@ class MacGyver(pygame.sprite.Sprite):
         self.tuplemacgyver = (self.ligne, self.colonne)
         self.listedobjet = []
         self.image = pygame.image.load("MacGyver.png")
-        
 
-
-    """ def okinput(self, userchoice):
-        inputok = False
-        if len(userchoice) == 1 and userchoice == "d" or userchoice =="l"  or userchoice == "u" or userchoice == "r":
-            inputok = True
-        return True """
 
     def lecturedelinput(self, event):
         
-        if event.key == pygame.K_DOWN:
+        
+        if event == pygame.K_RIGHT:
             return (self.ligne + 1, self.colonne)
-        elif event.key == pygame.K_RIGHT:
+        if event == pygame.K_DOWN:
             return (self.ligne, self.colonne +1)
-        elif event.key == pygame.K_LEFT:
+        elif event == pygame.K_UP:
             return (self.ligne, self.colonne -1)
-        elif event.key == pygame.K_UP:
+        elif event == pygame.K_LEFT:
             return (self.ligne -1, self.colonne)
 
+    
     def chekmove(self, variable, passage, listedobjetlabyrinthe, gardien):
         move = False
         
-        for element in listedobjetlabyrinthe:
+        """ for element in listedobjetlabyrinthe:
             if element.tupleposition == variable:
                 objettrouver = element
-                self.attrapelobjet(passage, objettrouver, listedobjetlabyrinthe) 
+                self.attrapelobjet(passage, objettrouver, listedobjetlabyrinthe)  """
         if variable in passage or variable == gardien:
             move = True
-        else: #on aime pas les exceptions seul 
-            print("merci de recommencer")
+        
         return move
 
     def movemacgyver(self, event, passage, gardien, listedobjetlabyrinthe, boleen, listegardien):
