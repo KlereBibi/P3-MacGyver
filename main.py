@@ -11,7 +11,6 @@ pygame.init()
 
 def main():
     
-    #monlabyrinthe.objetdanslabyrinthe()
 
     sortiedulabyrinthe = True
     monlabyrinthe = Labyrinthe()
@@ -22,10 +21,9 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 userchoice = event.key
-                sortiedulabyrinthe = monlabyrinthe.macgyver.movemacgyver(userchoice, monlabyrinthe.malistedetuplepassage, monlabyrinthe.gardien.tuplegardien, monlabyrinthe.listedobjet, sortiedulabyrinthe, monlabyrinthe.gardien.listedobjet)    
+                sortiedulabyrinthe = monlabyrinthe.macgyver.movemacgyver(userchoice, monlabyrinthe.malistedetuplepassage, monlabyrinthe.gardien.tuplegardien, monlabyrinthe.listedobjet, sortiedulabyrinthe)    
         pygame.display.flip()    
         monlabyrinthe.printlab()   
-       
 
 if __name__ == '__main__':
     main()

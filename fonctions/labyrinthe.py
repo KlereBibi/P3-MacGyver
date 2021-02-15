@@ -23,12 +23,12 @@ class Labyrinthe:
     def __init__(self):
         self.malistedetuplemur = []
         self.malistedetuplepassage = []
-        self.longueur = 0
-        self.largeur = 0
+        self.horizontal = 0
+        self.vertical = 0
         self.listedobjet = []
-        
         self.image_passage = pygame.image.load("Passage.png")
-        self.screen = pygame.display.set_mode((225, 225))
+        self.screen = pygame.display.set_mode((225, 300))
+        
 
     def readlab(self):
         monfichier = open(MONLABYRINTHE, "r")
@@ -46,13 +46,13 @@ class Labyrinthe:
                     self.gardien = Gardien(i, j)
                 j+=1
             i += 1
-        self.longueur = i 
-        self.largeur = j
+        self.horizontal = i 
+        self.vertical = j
 
     def printlab(self):
         #self.choixdelobjet = choice(ITEMS)
-        for i in range(self.longueur):
-            for j in range(self.largeur):
+        for i in range(self.horizontal):
+            for j in range(self.vertical):
                 for element in self.listedobjet:
                     if (i,j) == element.tupleposition:
                         if element.nomdelobjet == "aiguille":
@@ -62,17 +62,14 @@ class Labyrinthe:
                         elif element.nomdelobjet == "de l'ether":  
                             self.screen.blit(IMAGE_ETHER, element.newtupleposition)
                     if (i,j) in self.malistedetuplemur:
-                        self.screen.blit(IMAGE_MUR, (i*15,j*15))
+                        self.screen.blit(IMAGE_MUR, (j*15,i*15))
                     elif (i,j) in self.malistedetuplepassage:
-                        self.screen.blit(IMAGE_PASSAGE, (i*15,j*15))
+                        self.screen.blit(IMAGE_PASSAGE, (j*15,i*15))
                     elif i == self.gardien.ligne and j == self.gardien.colonne:
-                        self.screen.blit(IMAGE_GARDIEN, (i*15,j*15))
+                        self.screen.blit(IMAGE_GARDIEN, (j*15,i*15))
                     elif i == self.macgyver.ligne and j == self.macgyver.colonne:
-                        self.screen.blit(IMAGE_MACGYVER, (i*15,j*15))
-             
-                        
-        
-
+                        self.screen.blit(IMAGE_MACGYVER, (j*15,i*15))
+        self.macgyver.compteurdobjet(self.screen)
         pygame.display.flip()
         print("")
                 
@@ -81,14 +78,6 @@ class Labyrinthe:
             objet = Items(element, self.malistedetuplepassage)
             self.listedobjet.append(objet)
             self.malistedetuplepassage.remove(objet.tupleposition)
-
-            #image = objet.afficherlesimages()
-
-            #generalisation 
-
-    
-
-
 
             
                
