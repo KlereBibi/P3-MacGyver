@@ -6,12 +6,8 @@ from fonctions.labyrinthe import Labyrinthe
 import pygame
 pygame.init()
 
-#générer la fenêtre
-
-
 def main():
     
-
     sortiedulabyrinthe = True
     monlabyrinthe = Labyrinthe()
     monlabyrinthe.readlab()
@@ -21,10 +17,11 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 userchoice = event.key
-                sortiedulabyrinthe = monlabyrinthe.macgyver.movemacgyver(userchoice, monlabyrinthe.malistedetuplepassage, monlabyrinthe.gardien.tuplegardien, monlabyrinthe.listedobjet, sortiedulabyrinthe)    
+                sortiedulabyrinthe = monlabyrinthe.macgyver.movemacgyver(userchoice, monlabyrinthe.malistedetuplepassage, monlabyrinthe.gardien.tuplegardien, monlabyrinthe.listedobjet, sortiedulabyrinthe, monlabyrinthe.screen)    
         pygame.display.flip()    
-        monlabyrinthe.printlab()   
-
+        monlabyrinthe.printlab()
+        if not sortiedulabyrinthe:
+            input("")
 if __name__ == '__main__':
     main()
 

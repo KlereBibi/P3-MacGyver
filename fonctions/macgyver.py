@@ -1,4 +1,9 @@
 import pygame
+from fonctions.constantes import VERT
+from fonctions.constantes import POLICE
+from fonctions.constantes import NOIR
+from fonctions.constantes import FONDNOIR
+from fonctions.constantes import BLEU
 
 pygame.font.init()
 
@@ -13,7 +18,8 @@ class MacGyver(pygame.sprite.Sprite):
         self.tuplemacgyver = (self.ligne, self.colonne)
         self.listedobjet = []
         self.image = pygame.image.load("MacGyver.png")
-        self.myfont = pygame.font.SysFont("Times New Roman", 18)
+        self.myfont = pygame.font.SysFont(POLICE, 18)
+        self.game = True
 
 
     def lecturedelinput(self, event):
@@ -40,7 +46,7 @@ class MacGyver(pygame.sprite.Sprite):
         
         return move
 
-    def movemacgyver(self, event, passage, gardien, listedobjetlabyrinthe, boleen):
+    def movemacgyver(self, event, passage, gardien, listedobjetlabyrinthe, boleen, screen):
   
         
         positionaregarder = self.lecturedelinput(event)
@@ -48,43 +54,58 @@ class MacGyver(pygame.sprite.Sprite):
             passage.append((self.ligne, self.colonne))
             self.ligne = positionaregarder[0]
             self.colonne = positionaregarder[1] 
-            test = self.testcontinue(gardien, passage)
+            test = self.testcontinue(gardien, passage, screen)
+            
             if test:
                 passage.remove((self.ligne, self.colonne))
             else:
                 boleen = False
-        else:
-            print("merci de recommencer")
-   
+            
+        
         return boleen
 
-    def testcontinue(self, gardien, passage):
-        game = True
+    def testcontinue(self, gardien, passage, screen):
+        
         if (self.ligne, self.colonne) == (gardien):
             if len(self.listedobjet) == 3:
-                game = False    
-        return game
+                fin = "Macgyver sort du Labyrinthe"
+                
+            else:
+                fin = "Macgyver perd"
+                
+            self.game = False
+            self.printwindow(screen, fin, BLEU)
+                    
+        return self.game
+        
         
     def attrapelobjet(self, passage, objettrouver, listedobjetlabyrinthe):
         passage.append(objettrouver.tupleposition)
         self.listedobjet.append(objettrouver)
     
     def compteurdobjet(self, screen):
+        
+        
+        if self.game: 
+            if len(self.listedobjet) == 0:
+                nbrobjet = "Macgyver a 0 objet"
+                
+            elif len(self.listedobjet) == 1:
+                nbrobjet = "Macgyver a 1 objet"
+                
+            elif  len(self.listedobjet) == 2:
+                nbrobjet = "Macgyver a 2 objets"
+                
+            elif len(self.listedobjet) == 3:
+                nbrobjet = "Macgyver a 3 objets"
+        
+            self.printwindow(screen, nbrobjet, VERT)
+        
+        
 
-        while len(self.listedobjet) == 0:
-            textsurface = self.myfont.render("Macgyver a 0 objet", True, pygame.Color(0, 255, 0))
-        
-        while len(self.listedobjet) == 1:
-            textsurface = self.myfont.render("Macgyver a 1 objet", True, pygame.Color(0, 255, 0))
-            
+    def printwindow(self,screen, jaffiche, couleur):
+        screen.blit(FONDNOIR,(2,230))
+        textsurface = self.myfont.render(jaffiche, True, couleur)
         screen.blit(textsurface,(2,230))
-             
-"""elif  len(self.listedobjet) == 2:
-    textsurface = self.myfont.render("Macgyver a 2 objets.", True, pygame.Color(0, 255, 0))
-    
-elif len(self.listedobjet) == 3:
-    textsurface = self.myfont.render("Macgyver a 3 objets.", True, pygame.Color(0, 255, 0)) """
-        
-        
-        
+       
         

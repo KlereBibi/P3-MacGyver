@@ -13,10 +13,7 @@ from random import choice
 from fonctions.objets import Items
 import pygame
 pygame.init()
-
 pygame.display.set_caption("Macgyver")
-#screen = pygame.display.set_mode((225, 225))#largeur, hauteur ouf
-
 
 class Labyrinthe:
 
@@ -27,7 +24,7 @@ class Labyrinthe:
         self.vertical = 0
         self.listedobjet = []
         self.image_passage = pygame.image.load("Passage.png")
-        self.screen = pygame.display.set_mode((225, 300))
+        self.screen = pygame.display.set_mode((225, 255))
         
 
     def readlab(self):
@@ -41,7 +38,7 @@ class Labyrinthe:
                 elif "p"  in character:
                     self.malistedetuplepassage.append((i,j))
                 elif "h" in character:
-                    self.macgyver = MacGyver(i, j) #accroche à mon objet
+                    self.macgyver = MacGyver(i, j) 
                 elif "g" in character:
                     self.gardien = Gardien(i, j)
                 j+=1
@@ -49,8 +46,7 @@ class Labyrinthe:
         self.horizontal = i 
         self.vertical = j
 
-    def printlab(self):
-        #self.choixdelobjet = choice(ITEMS)
+    def printlab(self): 
         for i in range(self.horizontal):
             for j in range(self.vertical):
                 for element in self.listedobjet:
