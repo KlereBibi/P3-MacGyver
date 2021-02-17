@@ -23,7 +23,6 @@ class Labyrinthe:
         self.horizontal = 0
         self.vertical = 0
         self.listedobjet = []
-        self.image_passage = pygame.image.load("Passage.png")
         self.screen = pygame.display.set_mode((225, 255))
         
 
@@ -49,31 +48,48 @@ class Labyrinthe:
     def printlab(self): 
         for i in range(self.horizontal):
             for j in range(self.vertical):
-                for element in self.listedobjet:
-                    if (i,j) == element.tupleposition:
-                        if element.nomdelobjet == "aiguille":
-                            self.screen.blit(IMAGE_AIGUILLE, element.newtupleposition)
-                        elif element.nomdelobjet == "un tube en plastique":
-                            self.screen.blit(IMAGE_TUBEENPLASTIQUE, element.newtupleposition)
-                        elif element.nomdelobjet == "de l'ether":  
-                            self.screen.blit(IMAGE_ETHER, element.newtupleposition)
-                    if (i,j) in self.malistedetuplemur:
-                        self.screen.blit(IMAGE_MUR, (j*15,i*15))
-                    elif (i,j) in self.malistedetuplepassage:
-                        self.screen.blit(IMAGE_PASSAGE, (j*15,i*15))
-                    elif i == self.gardien.ligne and j == self.gardien.colonne:
-                        self.screen.blit(IMAGE_GARDIEN, (j*15,i*15))
-                    elif i == self.macgyver.ligne and j == self.macgyver.colonne:
-                        self.screen.blit(IMAGE_MACGYVER, (j*15,i*15))
+                if (i,j) in self.malistedetuplemur:
+                    self.screen.blit(IMAGE_MUR, (j*15,i*15))
+                elif (i,j) in self.malistedetuplepassage:
+                    self.screen.blit(IMAGE_PASSAGE, (j*15,i*15))
+                elif i == self.gardien.ligne and j == self.gardien.colonne:
+                    self.screen.blit(IMAGE_GARDIEN, (j*15,i*15))
+                elif i == self.macgyver.ligne and j == self.macgyver.colonne:
+                    self.screen.blit(IMAGE_MACGYVER, (j*15,i*15))
+                elif len(self.listedobjet) > 0:
+                    for element in self.listedobjet:
+                        if (i,j) == element.tupleposition:
+                            if element.nomdelobjet == "aiguille":
+                                self.screen.blit(IMAGE_AIGUILLE, element.newtupleposition)
+                            elif element.nomdelobjet == "un tube en plastique":
+                                self.screen.blit(IMAGE_TUBEENPLASTIQUE, element.newtupleposition)
+                            elif element.nomdelobjet == "de l'ether":  
+                                self.screen.blit(IMAGE_ETHER, element.newtupleposition)
+                    
+        
         self.macgyver.compteurdobjet(self.screen)
+        self.supprimerlobjet()
         pygame.display.flip()
         print("")
                 
-    def objetdanslabyrinthe(self,):
+    def objetdanslabyrinthe(self):
         for element in ITEMS:
             objet = Items(element, self.malistedetuplepassage)
             self.listedobjet.append(objet)
             self.malistedetuplepassage.remove(objet.tupleposition)
+
+    def supprimerlobjet(self):
+        for element in self.listedobjet:
+            if element in self.macgyver.listedobjet:
+                self.malistedetuplepassage.append(element.tupleposition)
+                self.listedobjet.remove(element)
+                
+        
+        
+
+                
+        
+        
 
             
                

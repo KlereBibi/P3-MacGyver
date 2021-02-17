@@ -7,6 +7,6 @@ class Gardien:
         self.colonne = y
         self.tuplegardien = (x,y)
         self.listedobjet = []
-        self.image = pygame.image.load("Gardien.PNG")
+        
 
   

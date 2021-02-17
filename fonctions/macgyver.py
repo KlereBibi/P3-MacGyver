@@ -17,7 +17,6 @@ class MacGyver(pygame.sprite.Sprite):
         self.colonne = y 
         self.tuplemacgyver = (self.ligne, self.colonne)
         self.listedobjet = []
-        self.image = pygame.image.load("MacGyver.png")
         self.myfont = pygame.font.SysFont(POLICE, 18)
         self.game = True
 
@@ -40,7 +39,7 @@ class MacGyver(pygame.sprite.Sprite):
         for element in listedobjetlabyrinthe:
             if element.tupleposition == variable:
                 objettrouver = element
-                self.attrapelobjet(passage, objettrouver, listedobjetlabyrinthe)  
+                self.listedobjet.append(objettrouver)
         if variable in passage or variable == gardien:
             move = True
         
@@ -78,13 +77,8 @@ class MacGyver(pygame.sprite.Sprite):
                     
         return self.game
         
-        
-    def attrapelobjet(self, passage, objettrouver, listedobjetlabyrinthe):
-        passage.append(objettrouver.tupleposition)
-        self.listedobjet.append(objettrouver)
     
     def compteurdobjet(self, screen):
-        
         
         if self.game: 
             if len(self.listedobjet) == 0:
