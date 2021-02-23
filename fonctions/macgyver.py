@@ -7,8 +7,6 @@ from fonctions.constantes import BLEU
 
 pygame.font.init()
 
-
-
 class MacGyver(pygame.sprite.Sprite):
 
     def __init__(self, x, y):
@@ -35,32 +33,29 @@ class MacGyver(pygame.sprite.Sprite):
     
     def chekmove(self, variable, passage, listedobjetlabyrinthe, gardien):
         move = False
-        
-        for element in listedobjetlabyrinthe:
-            if element.tupleposition == variable:
-                objettrouver = element
-                self.listedobjet.append(objettrouver)
         if variable in passage or variable == gardien:
             move = True
-        
+        for element in listedobjetlabyrinthe:
+            if element.tupleposition == variable or variable in passage or variable == gardien:
+                move = True 
         return move
+
+    def attrapelobjet(self, variable, listedobjetlabyrinthe):
+        for element in listedobjetlabyrinthe:
+            if element.tupleposition == variable:
+                self.listedobjet.append(element)
 
     def movemacgyver(self, event, passage, gardien, listedobjetlabyrinthe, boleen, screen):
   
-        
         positionaregarder = self.lecturedelinput(event)
         if self.chekmove( positionaregarder, passage, listedobjetlabyrinthe, gardien):
-            passage.append((self.ligne, self.colonne))
             self.ligne = positionaregarder[0]
             self.colonne = positionaregarder[1] 
             test = self.testcontinue(gardien, passage, screen)
-            
-            if test:
-                passage.remove((self.ligne, self.colonne))
-            else:
-                boleen = False
-            
-        
+            if len(self.listedobjet) != 3:
+                objet = self.attrapelobjet(positionaregarder, listedobjetlabyrinthe)
+            if not test:
+                boleen = False 
         return boleen
 
     def testcontinue(self, gardien, passage, screen):
@@ -68,35 +63,18 @@ class MacGyver(pygame.sprite.Sprite):
         if (self.ligne, self.colonne) == (gardien):
             if len(self.listedobjet) == 3:
                 fin = "Macgyver sort du Labyrinthe"
-                
             else:
                 fin = "Macgyver perd"
-                
             self.game = False
             self.printwindow(screen, fin, BLEU)
-                    
         return self.game
         
-    
     def compteurdobjet(self, screen):
         
         if self.game: 
-            if len(self.listedobjet) == 0:
-                nbrobjet = "Macgyver a 0 objet"
-                
-            elif len(self.listedobjet) == 1:
-                nbrobjet = "Macgyver a 1 objet"
-                
-            elif  len(self.listedobjet) == 2:
-                nbrobjet = "Macgyver a 2 objets"
-                
-            elif len(self.listedobjet) == 3:
-                nbrobjet = "Macgyver a 3 objets"
-        
+            nbrobjet = "MacGyver a {} objet(s)".format(len(self.listedobjet))            
             self.printwindow(screen, nbrobjet, VERT)
         
-        
-
     def printwindow(self,screen, jaffiche, couleur):
         screen.blit(FONDNOIR,(2,230))
         textsurface = self.myfont.render(jaffiche, True, couleur)
