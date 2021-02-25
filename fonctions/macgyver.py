@@ -1,83 +1,90 @@
 import pygame
-from fonctions.constantes import VERT
-from fonctions.constantes import POLICE
-from fonctions.constantes import NOIR
-from fonctions.constantes import FONDNOIR
-from fonctions.constantes import BLEU
+from fonctions.constantes import GREEN_COLOR
+from fonctions.constantes import FONT
+from fonctions.constantes import BLACK_COLOR
+from fonctions.constantes import BLACK_BACKGROUND 
+from fonctions.constantes import BLUE_COLOR 
 
 pygame.font.init()
 
 class MacGyver(pygame.sprite.Sprite):
-
+    """hero class"""
     def __init__(self, x, y):
+        """constructor of the hero class including horizontal and vertical position, object list, font, and a boleen"""
         super().__init__()
-        self.ligne = x
-        self.colonne = y 
-        self.tuplemacgyver = (self.ligne, self.colonne)
-        self.listedobjet = []
-        self.myfont = pygame.font.SysFont(POLICE, 18)
+        self.horizontal_position = x
+        self.vertical_position = y 
+        self.object_list = []
+        self.myfont = pygame.font.SysFont(FONT, 18)
         self.game = True
 
 
-    def lecturedelinput(self, event):
-
-        if event == pygame.K_RIGHT:
-            return (self.ligne, self.colonne +1)
-        if event == pygame.K_DOWN:
-            return (self.ligne +1, self.colonne )
-        elif event == pygame.K_UP:
-            return (self.ligne -1, self.colonne )
-        elif event == pygame.K_LEFT:
-            return (self.ligne , self.colonne -1)
+    def next_position(self, userchoice):
+        """method for applying user choice"""
+        if userchoice == pygame.K_RIGHT:
+            return (self.horizontal_position, self.vertical_position +1)
+        if userchoice == pygame.K_DOWN:
+            return (self.horizontal_position +1, self.vertical_position )
+        elif userchoice == pygame.K_UP:
+            return (self.horizontal_position -1, self.vertical_position )
+        elif userchoice == pygame.K_LEFT:
+            return (self.horizontal_position , self.vertical_position -1)
 
     
-    def chekmove(self, variable, passage, listedobjetlabyrinthe, gardien):
+    def can_move(self, position_to_watch, list_tuple_passage, list_object_labyrinth, guardian_position):
+        """method allowing to know if the player can move"""
         move = False
-        if variable in passage or variable == gardien:
+        if position_to_watch in list_tuple_passage or position_to_watch == guardian_position:
             move = True
-        for element in listedobjetlabyrinthe:
-            if element.tupleposition == variable or variable in passage or variable == gardien:
+        for element in list_object_labyrinth:
+            if element.tuple_position == position_to_watch or position_to_watch in list_tuple_passage or position_to_watch == guardian_position:
                 move = True 
         return move
 
-    def attrapelobjet(self, variable, listedobjetlabyrinthe):
-        for element in listedobjetlabyrinthe:
-            if element.tupleposition == variable:
-                self.listedobjet.append(element)
+    def grab_the_object(self, position_to_watch, list_object_labyrinth):
+        """method allowing to add an object on the list tuple passage to the list of object of MacGyver"""
+        for element in list_object_labyrinth:
+            if element.tuple_position == position_to_watch:
+                self.object_list.append(element)
 
-    def movemacgyver(self, event, passage, gardien, listedobjetlabyrinthe, boleen, screen):
-  
-        positionaregarder = self.lecturedelinput(event)
-        if self.chekmove( positionaregarder, passage, listedobjetlabyrinthe, gardien):
-            self.ligne = positionaregarder[0]
-            self.colonne = positionaregarder[1] 
-            test = self.testcontinue(gardien, passage, screen)
-            if len(self.listedobjet) != 3:
-                objet = self.attrapelobjet(positionaregarder, listedobjetlabyrinthe)
+    def move_macgyver(self, userchoice, list_tuple_passage, guardian_position, list_object_labyrinth, boleen, screen):
+        """method using the other methods to check if movement is possible, give MacGyver its new position, test the end of the game and use the method to grab objects"""
+        position_to_watch = self.next_position(userchoice)
+        if self.can_move(position_to_watch, list_tuple_passage, list_object_labyrinth, guardian_position):
+            self.horizontal_position = position_to_watch[0]
+            self.vertical_position = position_to_watch[1]
+            test = self.end_of_game_test(guardian_position, list_tuple_passage, screen)
+            if len(self.object_list) != 3:
+                self.grab_the_object(position_to_watch, list_object_labyrinth)
             if not test:
                 boleen = False 
         return boleen
-
-    def testcontinue(self, gardien, passage, screen):
         
-        if (self.ligne, self.colonne) == (gardien):
-            if len(self.listedobjet) == 3:
-                fin = "Macgyver sort du Labyrinthe"
+
+    def end_of_game_test(self, guardian_position, list_tuple_passage, screen):
+        """method using a condition to know if the position of MacGyver was the same as that of the guardian position, and if Macgyver had indeed the 3 objects to exit """
+        if (self.horizontal_position, self.vertical_position) == (guardian_position):
+            if len(self.object_list) == 3:
+                end = "Macgyver sort du Labyrinthe"
             else:
-                fin = "Macgyver perd"
+                end = "Macgyver perd"
+            self.printwindow(screen, end, BLUE_COLOR)
             self.game = False
-            self.printwindow(screen, fin, BLEU)
         return self.game
         
-    def compteurdobjet(self, screen):
         
+        
+    def object_counter(self, screen):
+        """method using the constructor's object list to white the number of objects in its possession"""
         if self.game: 
-            nbrobjet = "MacGyver a {} objet(s)".format(len(self.listedobjet))            
-            self.printwindow(screen, nbrobjet, VERT)
+            number_of_objects = "MacGyver a {} objet(s)".format(len(self.object_list))            
+            self.printwindow(screen, number_of_objects, GREEN_COLOR)
         
-    def printwindow(self,screen, jaffiche, couleur):
-        screen.blit(FONDNOIR,(2,230))
-        textsurface = self.myfont.render(jaffiche, True, couleur)
+    def printwindow(self,screen, my_text, the_colour):
+        """method to white the elements in the window generated by pygame"""
+        screen.blit(BLACK_BACKGROUND, (2,230))
+        textsurface = self.myfont.render(my_text, True, the_colour)
         screen.blit(textsurface,(2,230))
+        
        
         
