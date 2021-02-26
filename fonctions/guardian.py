@@ -1,9 +1,9 @@
 import pygame
 
 class Guardian: 
-    """class objet fuardian"""
+    """class guardian"""
     def __init__(self, x, y):
-        """constructeur comprenant la position horizontal du gardien, verticale, ainsi que le tuple de saZZZZZZZ"""
+        """constructor including the horizontal position of the guardian, vertical, as well as the position tuple"""
         self.tuple_guardian = (x,y)
         
 

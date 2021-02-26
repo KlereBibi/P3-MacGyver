@@ -6,7 +6,7 @@ import pygame
 from fonctions.labyrinth import Labyrinth
 
 def main():
-    
+    """main function of the game"""
     pygame.init() 
     end_of_game = True
     my_labyrinth = Labyrinth()
@@ -19,10 +19,7 @@ def main():
                 userchoice = event.key
                 end_of_game = my_labyrinth.macgyver.move_macgyver(userchoice, my_labyrinth.tuple_pass_list, my_labyrinth.guardian.tuple_guardian, my_labyrinth.object_list, end_of_game, my_labyrinth.screen)        
                 my_labyrinth.print_labyrinth()
-                
-        if not end_of_game:
-            input("")
-            
+    
 if __name__ == '__main__':
     main()
 
