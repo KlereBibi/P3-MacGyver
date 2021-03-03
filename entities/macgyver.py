@@ -1,5 +1,5 @@
 import pygame
-from settings.constantes import GREEN_COLOR, FONT, BLACK_COLOR, BLACK_BACKGROUND, BLUE_COLOR, PICTURE
+from settings.constantes import MY_FONT, COLOR, BLACK_BACKGROUND, PICTURE
 
 pygame.font.init()
 
@@ -20,7 +20,7 @@ class MacGyver(pygame.sprite.Sprite):
         self.horizontal_position = x
         self.vertical_position = y 
         self.object_list = []
-        self.myfont = pygame.font.SysFont(FONT, 18)
+        #self.myfont = pygame.font.SysFont(FONT, 18)
         self.game = True
 
 
@@ -109,10 +109,11 @@ class MacGyver(pygame.sprite.Sprite):
         
         if (self.horizontal_position, self.vertical_position) == (guardian_position):
             if len(self.object_list) == 3:
-                end = "Macgyver sort du Labyrinthe"
+                end = "Macgyver exits the Labyrinth"
             else:
-                end = "Macgyver perd"
-            self.printwindow(screen, end, BLUE_COLOR)
+                end = "macgyver loses"
+            blue = COLOR[2]
+            self.printwindow(screen, end, blue["color"])
             self.game = False
         return self.game
         
@@ -123,8 +124,9 @@ class MacGyver(pygame.sprite.Sprite):
             - the variable containing the pygame display window used to display the items counter"""
         
         if self.game: 
-            number_of_objects = "MacGyver a {} objet(s)".format(len(self.object_list))            
-            self.printwindow(screen, number_of_objects, GREEN_COLOR)
+            number_of_objects = "Macgyver has {} item(s)".format(len(self.object_list))
+            green = COLOR[0]            
+            self.printwindow(screen, number_of_objects, green["color"])
         
     def printwindow(self,screen, my_text, the_colour):
 
@@ -135,6 +137,6 @@ class MacGyver(pygame.sprite.Sprite):
             - the color of the text to display as a constant"""
 
         screen.blit(BLACK_BACKGROUND, (2,230))
-        textsurface = self.myfont.render(my_text, True, the_colour)
+        textsurface = MY_FONT.render(my_text, True, the_colour)
         screen.blit(textsurface,(2,230))
         
