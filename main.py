@@ -3,15 +3,19 @@
 
 import pygame
 
-from fonctions.labyrinth import Labyrinth
+from entities.labyrinth import Labyrinth
 
 def main():
-    """main function of the game"""
-    pygame.init() 
+
+    """Main function of the game.
+        This function initializes Pygame, initializes the maze in a variable, reads the text file of the maze, and calls the method used to create the items in the maze.
+        A while mouth is created and the game only stops if the method calling move_macgyver returns a boleen False"""
+
+    pygame.init()  
     end_of_game = True
     my_labyrinth = Labyrinth()
     my_labyrinth.read_file_labyrinth()
-    my_labyrinth.object_labyrinth()
+    my_labyrinth.item_labyrinth()
     while end_of_game:
         my_labyrinth.print_labyrinth()
         for event in pygame.event.get():
