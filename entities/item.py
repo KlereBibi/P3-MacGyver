@@ -8,10 +8,10 @@ class Items():
 
         """Constructor of the class containing the position of the items, the key and the value of the items.
             
-            Le constructeur prend en argument:
-            - l'élément dictionnaire choisit dans une liste de dictionnaire des items
-            - la liste de tuple de passage permettant l'utilisation de la fonction random pour trouver aléatoirement un emplacement dans le labyrinthe.   """
-
+            The constructor takes as argument:
+            - the item chooses from the list to save the elements of the item's dictionary in a variable
+            - the passing tuple list to randomly find the item's position with the random"""
+            
         self.type_of_items = element
         self.tuple_position = choice(passage_list)
         self.print_value = self.type_of_items["image"]

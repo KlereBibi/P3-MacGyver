@@ -15,7 +15,7 @@ class Labyrinth:
 
     def __init__(self):
 
-        """Constructor including tuple list of passage and walls, two dimensional array, object list and pygame viewport"""
+        """Constructor including tuple list of passage and walls, two dimensional array, items list and pygame viewport"""
 
         self.tuple_wall_list = []
         self.tuple_pass_list = []
@@ -54,17 +54,13 @@ class Labyrinth:
         for i in range(self.horizontal_position):
             for j in range(self.vertical_position):
                 if (i,j) in self.tuple_wall_list:
-                    wall_picture = PICTURE[0]
-                    self.screen.blit(wall_picture["image"] , (j*15,i*15))
+                    self.screen.blit(PICTURE["wall"] , (j*15,i*15))
                 elif (i,j) in self.tuple_pass_list:
-                    labyrinth_picture = PICTURE[1]
-                    self.screen.blit(labyrinth_picture["image"], (j*15,i*15))
+                    self.screen.blit(PICTURE["passage"], (j*15,i*15))
                 elif (i,j) == self.guardian.tuple_guardian:
-                    guardian_picture = PICTURE[2]
-                    self.screen.blit(guardian_picture["image"], (j*15,i*15))
+                    self.screen.blit(PICTURE["guardian"], (j*15,i*15))
                 elif i == self.macgyver.horizontal_position and j == self.macgyver.vertical_position:
-                    macgyver_picture = PICTURE[3]
-                    self.screen.blit(macgyver_picture["image"], (j*15,i*15))
+                    self.screen.blit(PICTURE["macgyver"], (j*15,i*15))
                     self.tuple_pass_list.append((self.macgyver.horizontal_position, self.macgyver.vertical_position))
                 elif len(self.object_list) != 0:
                     for element in self.object_list:
