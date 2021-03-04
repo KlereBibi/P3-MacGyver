@@ -1,9 +1,10 @@
+from random import choice
+import pygame
 from settings.constantes import MYLABYRINTH, ITEMS, SCREEN, PICTURE
 from entities.macgyver import MacGyver
 from entities.guardian import Guardian
-from random import choice
 from entities.item import Items
-import pygame
+
 
 pygame.init()
 pygame.display.set_caption("Macgyver")
