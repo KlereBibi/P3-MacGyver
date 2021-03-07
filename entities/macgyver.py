@@ -1,5 +1,7 @@
+"""This module contains Macgyver's class with different methods for interacting in the labyrinth."""
+
 import pygame
-from settings.constantes import FONT, COLOR, BLACK_BACKGROUND, PICTURE
+from settings.constant import FONT, COLOR, BLACK_BACKGROUND
 
 pygame.font.init()
 
@@ -10,55 +12,54 @@ class MacGyver(pygame.sprite.Sprite):
     def __init__(self, x, y):
 
         """constructor of the hero class
-            
+
             Args:
                 x (int) : horizontal position
                 y (int):  vertical position
-            
+
             Attributes:
                 attr1 (int) : horizontal position of hero
-                attr2 (int) : vertical_position of hero 
+                attr2 (int) : vertical_position of hero
                 attr3 (list) : list of item
                 attr4 (str) : initialization of the display size and font
                 attr5 (bol) : True the game continue, False the end of the game"""
 
         super().__init__()
         self.horizontal_position = x
-        self.vertical_position = y 
+        self.vertical_position = y
         self.item_list = []
         self.myfont = pygame.font.SysFont(FONT, 18)
         self.game = True
-
 
     def next_position(self, userchoice):
 
         """method for applying user choice
 
             Args:
-                userchoice (str): the alone parametre
-            
+                userchoice (Event): keyboard key press by user
+
             Returns:
                 tuple of the news position  """
 
         if userchoice == pygame.K_RIGHT:
             return (self.horizontal_position, self.vertical_position +1)
-        if userchoice == pygame.K_DOWN:
+        elif userchoice == pygame.K_DOWN:
             return (self.horizontal_position +1, self.vertical_position )
         elif userchoice == pygame.K_UP:
             return (self.horizontal_position -1, self.vertical_position )
         elif userchoice == pygame.K_LEFT:
             return (self.horizontal_position , self.vertical_position -1)
 
-    
-    def can_move(self, position_to_watch, list_tuple_passage, list_items_labyrinth, guardian_position):
+    def can_move(self, position_to_watch, list_tuple_passage,\
+                list_items_labyrinth, guardian_position):
 
         """method allowing to know if the player can move
 
            Args :
-                position_to_watch (tup) : the first parametre
-                list_tuple_passage (list) : the second parametre
-                list_items_labyrinth (list) : the third parametre
-                guardian_position (tup) : the fourth parametre
+                position_to_watch (tup) : position requested by use
+                list_tuple_passage (list) : list with the passing tuples
+                list_items_labyrinth (list) : list with the item in the labyrinthe
+                guardian_position (tup) : tuple position of the guardian
 
             Returns:
                 move (bol) : False the hero can't move, True the hero can move"""
@@ -67,57 +68,52 @@ class MacGyver(pygame.sprite.Sprite):
         if position_to_watch in list_tuple_passage or position_to_watch == guardian_position:
             move = True
         for element in list_items_labyrinth:
-            if element.tuple_position == position_to_watch or position_to_watch in list_tuple_passage or position_to_watch == guardian_position:
-                move = True 
+            if element.tuple_position == position_to_watch\
+                or position_to_watch in list_tuple_passage\
+                or position_to_watch == guardian_position:
+                move = True
         return move
 
-    def grab_the_object(self, position_to_watch, list_items_labyrinth):
+    def grab_the_object(self, list_items_labyrinth):
 
-        """method allowing to add an items on the list tuple passage to the list of items of MacGyver
-            
+        """method to add an items on the list tuple passage to the list of items of MacGyver
+
             Args:
-                position_to_watch (tuple) : the first parametre
-                list_items_labyrinth (list) : the second parametre"""
+                list_items_labyrinth (list) : list with the item in the labyrinthe"""
 
         for element in list_items_labyrinth:
-            if element.tuple_position == position_to_watch:
+            if element.tuple_position == (self.horizontal_position, self.vertical_position):
                 self.item_list.append(element)
 
-    def move_macgyver(self, userchoice, list_tuple_passage, guardian_position, list_items_labyrinth, boleen, screen):
+    def move_macgyver(self, userchoice, list_tuple_passage,\
+                        guardian_position, list_items_labyrinth ):
 
-        """method using the other methods to check if movement is possible, give MacGyver its new position, test the end of the game and use the method to grab objects
-            
+        """method to move macgyver
+
            Args:
-                userchoice (str) : the first parametre
-                list_tuple_passage (list) : the second parametre
-                guardian_position (tup) : the third parametre
-                list_items_labyrinth (list) : the fourth parametre
-                boleen (bol) : the fifth parametre
-                screen (surface) : the sixth parametre
-            
-            Returns:
-                boleen : False end of the game, True the game continue """
-            
+                userchoice (Event) : keyboard key press by user
+                list_tuple_passage (list) : list with the passing tuples
+                guardian_position (tup) : tuple position of the guardian
+                list_items_labyrinth (list) : list with the item in the labyrinthe
+             """
+
         position_to_watch = self.next_position(userchoice)
-        if self.can_move(position_to_watch, list_tuple_passage, list_items_labyrinth, guardian_position):
+        if self.can_move(position_to_watch, list_tuple_passage, \
+                            list_items_labyrinth, guardian_position):
             self.horizontal_position = position_to_watch[0]
             self.vertical_position = position_to_watch[1]
-            test = self.end_of_game_test(guardian_position, screen)
-            if len(self.item_list) != 3:
-                self.grab_the_object(position_to_watch, list_items_labyrinth)
-            if not test:
-                boleen = False 
-        return boleen
-        
+        if len(self.item_list) != 3:
+            self.grab_the_object(list_items_labyrinth)
 
-    def end_of_game_test(self, guardian_position, screen):
+    def end_of_game_test(self, guardian_position, screen, end_of_game):
 
-        """method using a condition to know if the position of MacGyver was the same as that of the guardian position, and if Macgyver had indeed the 3 objects to exit 
-        
+        """methode test for the end of game
+
         Args:
-            guardian_position (tuple) : the first parametre
-            screen (surface) : the sixth parametre
-        
+            guardian_position (tuple) : tuple position of the guardian
+            screen (surface) : pygame display window
+            end_of_game (bol) :
+
         Returns:
             game (bol) : False end of the game, True the game continue """
 
@@ -127,29 +123,27 @@ class MacGyver(pygame.sprite.Sprite):
             else:
                 end = "macgyver loses"
             self.printwindow(screen, end, COLOR["blue"])
-            self.game = False
-        return self.game
-        
-    def object_counter(self, screen):
+            end_of_game = False
+        return end_of_game
 
-        """method using the constructor's items list to white the number of objects in its possession
-            
+    def items_counter(self, screen):
+
+        """count items in macgyver's list
+
             Args:
-                screen (surface) : the alone parametre"""
-        
-        if self.game: 
-            number_of_objects = "Macgyver has {} item(s)".format(len(self.item_list))          
-            self.printwindow(screen, number_of_objects, COLOR["green"])
-        
+                screen (surface) : pygame display window"""
+
+        number_of_items = "Macgyver has {} item(s)".format(len(self.item_list))
+        self.printwindow(screen, number_of_items, COLOR["green"])
+
     def printwindow(self,screen, my_text, the_color):
 
         """method to white the elements in the window generated by pygame
 
             Args:
-                screen (surface) : the first parametre
-                the_color (dict) : the second parametre"""
+                screen (surface) : pygame display window
+                the_color (dict) : color dictionary"""
 
         screen.blit(BLACK_BACKGROUND, (2,230))
         textsurface = self.myfont.render(my_text, True, the_color)
         screen.blit(textsurface,(2,230))
-        

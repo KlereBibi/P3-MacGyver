@@ -1,14 +1,18 @@
-import pygame
+"""This module contains the guard's class to start his position."""
 
-class Guardian: 
+class Guardian:
 
     """Class guardian """
 
     def __init__(self, x, y):
 
-        """Constructor including the horizontal position of the guardian, vertical, as well as the position tuple"""
+        """Constructor of the class
+
+        Args:
+            x (int) : horizontal position
+            y (int) : verticale position
+
+        Attributs:
+            tuple_guardian (tuple) : position of guardian"""
 
         self.tuple_guardian = (x,y)
-        
-
-  
