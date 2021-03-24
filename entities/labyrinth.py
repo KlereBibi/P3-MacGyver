@@ -27,8 +27,8 @@ class Labyrinth:
 
         self.tuple_wall_list = []
         self.tuple_pass_list = []
-        self.horizontal_position = 0
-        self.vertical_position = 0
+        self.max_horizontal_position = 0
+        self.max_vertical_position = 0
         self.item_list = []
         self.screen = SCREEN
 
@@ -51,16 +51,16 @@ class Labyrinth:
                     self.guardian = Guardian(i, j)
                 j+=1
             i += 1
-        self.horizontal_position = i
-        self.vertical_position = j
+        self.max_horizontal_position = i
+        self.max_vertical_position = j
 
     def print_labyrinth(self):
 
         """maze display method with pygame"""
 
         self.new_macgyver_position()
-        for i in range(self.horizontal_position):
-            for j in range(self.vertical_position):
+        for i in range(self.max_horizontal_position):
+            for j in range(self.max_vertical_position):
                 if (i,j) in self.tuple_wall_list:
                     self.screen.blit(PICTURE["wall"] , (j*15,i*15))
                 elif (i,j) in self.tuple_pass_list:

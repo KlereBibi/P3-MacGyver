@@ -16,11 +16,11 @@ class Items():
 
             Attributs:
                 attr1 (dict) : item dictionary
-                attr2 (tuple) : tuple chooses from the pass list
+                attr2 (tup) : tuple chooses from the pass list
                 attr3 (str) : the value of the element key
                 attr4 (int) : horizontal position
                 attr5 (int) : vertical position
-                attr6 (tuple) : position to display with pygame"""
+                attr6 (tup) : position to display with pygame"""
 
         self.type_of_items = element
         self.tuple_position = choice(passage_list)

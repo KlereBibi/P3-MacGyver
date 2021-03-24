@@ -36,7 +36,7 @@ class MacGyver(pygame.sprite.Sprite):
         """method for applying user choice
 
             Args:
-                userchoice (Event): keyboard key press by user
+                userchoice : keyboard key press by user
 
             Returns:
                 tuple of the news position  """
@@ -54,7 +54,6 @@ class MacGyver(pygame.sprite.Sprite):
                 list_items_labyrinth, guardian_position):
 
         """method allowing to know if the player can move
-
            Args :
                 position_to_watch (tup) : position requested by use
                 list_tuple_passage (list) : list with the passing tuples
@@ -74,6 +73,25 @@ class MacGyver(pygame.sprite.Sprite):
                 move = True
         return move
 
+    def move_macgyver(self, userchoice, list_tuple_passage,\
+                        guardian_position, list_items_labyrinth ):
+
+        """method to move macgyver
+        
+           Args:
+                userchoice (str) : keyboard key press by user
+                list_tuple_passage (list) : list with the passing tuples
+                guardian_position (tup) : tuple position of the guardian
+                list_items_labyrinth (list) : list with the item in the labyrinthe"""
+
+        position_to_watch = self.next_position(userchoice)
+        if self.can_move(position_to_watch, list_tuple_passage, \
+                            list_items_labyrinth, guardian_position):
+            self.horizontal_position = position_to_watch[0]
+            self.vertical_position = position_to_watch[1]
+        if len(self.item_list) != 3:
+            self.grab_the_object(list_items_labyrinth)
+
     def grab_the_object(self, list_items_labyrinth):
 
         """method to add an items on the list tuple passage to the list of items of MacGyver
@@ -85,25 +103,7 @@ class MacGyver(pygame.sprite.Sprite):
             if element.tuple_position == (self.horizontal_position, self.vertical_position):
                 self.item_list.append(element)
 
-    def move_macgyver(self, userchoice, list_tuple_passage,\
-                        guardian_position, list_items_labyrinth ):
-
-        """method to move macgyver
-
-           Args:
-                userchoice (Event) : keyboard key press by user
-                list_tuple_passage (list) : list with the passing tuples
-                guardian_position (tup) : tuple position of the guardian
-                list_items_labyrinth (list) : list with the item in the labyrinthe
-             """
-
-        position_to_watch = self.next_position(userchoice)
-        if self.can_move(position_to_watch, list_tuple_passage, \
-                            list_items_labyrinth, guardian_position):
-            self.horizontal_position = position_to_watch[0]
-            self.vertical_position = position_to_watch[1]
-        if len(self.item_list) != 3:
-            self.grab_the_object(list_items_labyrinth)
+   
 
     def end_of_game_test(self, guardian_position, screen, end_of_game):
 
