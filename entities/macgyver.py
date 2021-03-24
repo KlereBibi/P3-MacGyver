@@ -85,7 +85,7 @@ class MacGyver(pygame.sprite.Sprite):
                 list_items_labyrinth (list) : list with the item in the labyrinthe"""
 
         position_to_watch = self.next_position(userchoice)
-        if self.can_move(position_to_watch, list_tuple_passage, \
+        if self.can_move(position_to_watch, list_tuple_passage,\
                             list_items_labyrinth, guardian_position):
             self.horizontal_position = position_to_watch[0]
             self.vertical_position = position_to_watch[1]
