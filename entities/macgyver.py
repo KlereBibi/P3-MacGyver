@@ -90,9 +90,9 @@ class MacGyver(pygame.sprite.Sprite):
             self.horizontal_position = position_to_watch[0]
             self.vertical_position = position_to_watch[1]
         if len(self.item_list) != 3:
-            self.grab_the_object(list_items_labyrinth)
+            self.grab_the_items(list_items_labyrinth)
 
-    def grab_the_object(self, list_items_labyrinth):
+    def grab_the_items(self, list_items_labyrinth):
 
         """method to add an items on the list tuple passage to the list of items of MacGyver
 

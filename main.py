@@ -1,4 +1,5 @@
 
+
 # coding: utf-8 - spécifie l'encodage du code source de notre script
 
 """This module contains the main function of the game"""
