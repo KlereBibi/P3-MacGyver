@@ -1,6 +1,6 @@
 # Aidez MacGyver à s'échapper
 
-*Le jeu consiste à aider MacGyver à s'échapper. Pour cela, MacGyver doit récupérer les trois items dans le labyrinthe pour fabriquer une seringue afin d'endormir le gardien. Si MacGyver n'a pas tous les items, il perd.*
+*Le jeu va initialiser un labyrinthe dans lequel Macgyver est enfermé. Pour sortir, MacGyver doit récupérer les trois items dispersés dans le labyrinthe pour fabriquer une seringue afin d'endormir le gardien. Si MacGyver n'a pas tous les items, il perd.*
 
 ## Pour commencer
 
