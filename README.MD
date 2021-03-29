@@ -17,12 +17,12 @@ Ce qu'il est requis pour commencer...
 
 
 Dans votre terminal, clonez le package avec git sur votre dépôt local (ordinateur) comme ceci:
- - Etape 1 : initialisation de git dans le dossier correspondant avec: 'git init'
- - Etape 2: 'git remote add <nom du fichier> https://github.com/KlereBibi/MacGyver.git' 
- - Etape 3: *git clone https://github.com/KlereBibi/MacGyver.git*
+ - Etape 1 : initialisation de git dans le dossier correspondant avec: *`git init`*
+ - Etape 2: *`git remote add <nom du fichier> https://github.com/KlereBibi/MacGyver.git'* 
+ - Etape 3: *`git clone https://github.com/KlereBibi/MacGyver.git`*
  
 Toujours dans le terminal, initialisez votre environnement virtuel:
- - Etape 1: installation de pipenv avec la commande: *pip install pipenv*
+ - Etape 1: installation de pipenv avec la commande: *`pip install pipenv`*
  - Etape 2: initialisation de l'environnement virtuel dans le package: *pipenv shell* 
  - Etape 3: installer les modules nécessaires grâce au fichier requierements.txt: *pipenv install -r requirements.txt*
 
