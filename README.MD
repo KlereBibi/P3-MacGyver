@@ -24,7 +24,7 @@ Dans votre terminal, clonez le package avec git sur votre dépôt local (ordinat
 Toujours dans le terminal, initialisez votre environnement virtuel:
  - Etape 1: installation de pipenv avec la commande: *`pip install pipenv`*
  - Etape 2: initialisation de l'environnement virtuel dans le package: *`pipenv shell`* 
- - Etape 3: installer les modules nécessaires grâce au fichier requierements.txt: *``pipenv install -r requirements.txt`*
+ - Etape 3: installer les modules nécessaires grâce au fichier requierements.txt: *`pipenv install -r requirements.txt`*
 
 ## Démarrage
 * Ouvrez le fichier *`main.py`* avec votre éditeur de code
